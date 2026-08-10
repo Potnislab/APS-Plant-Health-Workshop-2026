@@ -2,7 +2,7 @@
 Dive into the hidden microbial world of agricultural fields with genomics and metagenomics. Led by researchers from Auburn University, you'll explore realistic field-based case studies and learn how to transform biological questions into actionable sequencing and analysis workflows. 
 
 ## Note
-*This Github page was also the part of pre-meeting workshop for American Phytopathological Society Plant health conference held on August 1st, 2026 at Providence, Rhode-Island.*
+*This Github page was also a part of the pre-meeting workshop for American Phytopathological Society Plant health conference held on August 1st, 2026 at Providence, Rhode-Island.*
 
 ## Required Application Installation for Workshop:
 Dear Workshop Participants,
