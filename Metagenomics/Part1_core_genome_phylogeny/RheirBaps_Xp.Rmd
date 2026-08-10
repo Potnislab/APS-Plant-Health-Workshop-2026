@@ -1,0 +1,119 @@
+---
+title: "R Notebook"
+output: html_notebook
+
+#it takes a while to runn this part, so we have provided you with direct output file
+#Xp_hierbaps.csv is present in the github respository, please download that file before running this
+
+---
+```{r}
+# Installs packages for managing sequence data, computing population structures, and basic plotting
+install.packages(c("ape", "rhierbaps", "ggplot2", "ggnewscale"))
+# 1. Install the Bioconductor manager first
+install.packages("BiocManager")
+
+# 2. Use BiocManager to download and install the specialized tree layout packages
+BiocManager::install(c("ggtree", "ggtreeExtra"))
+```
+
+
+```{r}
+# Load sequence and clustering tools
+library(ape)
+library(rhierbaps)
+
+# Load plotting and tree visualization tools
+library(ggplot2)
+library(ggnewscale)
+library(ggtree)
+library(ggtreeExtra)
+```
+
+
+#because size of snp files was big 
+dna <- read.dna(
+  "/Users/azk0151/Library/CloudStorage/Box-Box/Amanpreet/APS_2026_workshop/Result_files/Parsnp/SNPs.fa",
+  format = "fasta"
+)
+
+seg <- seg.sites(dna)
+
+dna.snp <- dna[, seg]
+
+dim(dna.snp)
+
+write.dna(
+  dna.snp,
+  file = "/Users/azk0151/Library/CloudStorage/Box-Box/Amanpreet/APS_2026_workshop/Result_files/Parsnp/SNPs_variable_only.fa",
+  format = "fasta",
+  nbcol = -1,
+  colsep = ""
+
+
+
+#now use this reduced version
+snp.matrix <- load_fasta("/Users/azk0151/Library/CloudStorage/Box-Box/Amanpreet/APS_2026_workshop/Result_files/Parsnp/SNPs_variable_only.fa")
+#to determine if loaded correctly 
+class(snp.matrix)
+dim(snp.matrix)
+
+#Run hierbaps
+Perforans.hb <- hierBAPS(snp.matrix, max.depth=2, n.pops=20, quiet=FALSE)
+#Inspect the result
+head(Perforans.hb$partition.df)
+
+#Save the results
+#write.csv(Perforans.hb$partition.df, file = "/Users/azk0151/Downloads/Xp_hierbaps.csv",
+    col.names = TRUE, row.names = FALSE)
+
+
+#it takes a while to runn this part, so we have provided you with direct output file
+#Xp_hierbaps.csv is present in the github respository, please download that file before running this
+
+```{r}
+
+
+## 1. Load the tree file # add the path here to your download directory where the Xp_hierbaps.csv  is located in your computer
+
+tree <- read.tree("~/Downloads/Part1B/parsnp.tree")
+
+## 2. Load the list of specific genomes to highlight
+# Ensure this CSV has a column 'label' containing the names to highlight
+highlight_list <- read.csv("~/Downloads/Part1B/highlights.csv")$label
+
+## 3. Initialize the Circular Tree
+# We set layout='circular' and use a logical check inside geom_tiplab 
+# to show names only if they are in our 'highlight_list'
+p <- ggtree(tree, layout='rectangular') + 
+  geom_tiplab(aes(label = ifelse(label %in% highlight_list, 
+                                 paste0("\u2794 ", label), "")), 
+              size = 1, align = TRUE, color = "gray", 
+              linetype = "dotted", linesize = 0.3, offset = 0.05) +
+  # Add a small marker at the tip for highlighted ones
+  geom_tippoint(aes(subset = label %in% highlight_list), 
+                shape = 17, color = "darkred", size = 5)
+
+## 4. Prepare Heatmap Data
+heatmapData <- read.csv("~/Downloads/Part1B/Xp_level_1_heirbaps.csv", row.names = 1)
+rn <- rownames(heatmapData)
+heatmapData <- as.data.frame(sapply(heatmapData, as.character))
+rownames(heatmapData) <- rn
+
+## 5. Define Colors
+heatmap.colours <- c("#ffffff", "orange", "#A6CEE3", "blue", "#CAB2D6","#B2DF8A","#CC0066","#CC00CC", "#FFC0CB", "#8E8E38","#006400")
+
+names(heatmap.colours) <- 0:10
+
+## 6. Combine Tree and Heatmap
+# Note: You may need to adjust the 'offset' value based on the radius of your circular tree
+p2 <- gheatmap(p, heatmapData, offset = 0.1, width = 0.05, 
+               font.size = 1.25, colnames_position = "top", 
+               colnames_angle = 360, colnames_offset_y = 0, hjust = 0) + 
+      scale_fill_manual(name="SCs", values=heatmap.colours, 
+                        labels=c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"))
+
+p2
+
+ggsave(filename = "~/Downloads/ParSNP_tree_SCs.png", plot = p2, width = 12, height = 10, units = "in", dpi = 1200)
+```
+
