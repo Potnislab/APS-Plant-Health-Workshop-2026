@@ -4,7 +4,7 @@ Dive into the hidden microbial world of agricultural fields with genomics and me
 ## NOTE
 *This Github page was also the part of pre-meeting workshop for American Phytopathological Society Plant health conference held on August 1st, 2026 at Providence, Rhode-Island.*
 
-# Required Application Installation for Workshop:
+## Required Application Installation for Workshop:
 Dear Workshop Participants,
 
 We are excited to have you join us for the upcoming “Genomics and Metagenomics Tools: Revealing Hidden Diversity in Agricultural Fields” workshop.
