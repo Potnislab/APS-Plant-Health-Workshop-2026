@@ -1,7 +1,0 @@
-﻿Assembly Accession,SC,BioSample ID,Assembly Name,Isolation Date ,Isolation host,Location,Organism Name,Organism Infraspecific Names Strain,CheckM completeness,CheckM contamination
-GCA_041643375.1,SC1,SAMN33607657,ASM4164337v1,1991,tomato,USA: Florida,Xanthomonas perforans,Xp894,99.56,0.35
-GCA_041643575.1,SC1,SAMN33607647,ASM4164357v1,1995,tomato,USA: Florida,Xanthomonas perforans,Xp1797,99.56,0.67
-GCA_041643495.1,SC7,SAMN33607652,ASM4164349v1,1998,tomato,USA: Florida,Xanthomonas perforans,Xp1920,99.84,0.53
-GCA_041643415.1,SC1,SAMN33607656,ASM4164341v1,2006,tomato,USA: Florida,Xanthomonas perforans,Xp5-9,99.47,1.96
-GCA_041646435.1,SC7,SAMN33607572,ASM4164643v1,2011,tomato,USA: Florida,Xanthomonas perforans,GEV485,99.84,0.78
-GCA_019987715.1,SC3,SAMN16476190,ASM1998771v1,2017,tomato,USA: Florida,Xanthomonas perforans,JK45-1,,
